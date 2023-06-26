@@ -29,13 +29,13 @@ To implement a video plugin, follow these steps:
 
 3. Build the plugin as a shared object library (DLL file on Windows, SO file on Linux) using the appropriate build system and compiler. Make sure to link against the necessary dependencies, such as the OpenCV library.
 
-4. Distribute the plugin shared object file along with any required dependencies. Provide documentation on how to use the plugin, including the expected interface, methods, and any specific requirements or considerations.
+4. Distribute the plugin-shared object file along with any required dependencies. Provide documentation on how to use the plugin, including the expected interface, methods, and any specific requirements or considerations.
 
 ## Example Plugin
 
-As an example, we provide a simple plugin implementation called `SimplePlugin`. The plugin demonstrates basic detection functionality and provides detection information through the defined interface.
+As an example, we provide a simple plugin implementation called `RecognationLibrary`. The plugin demonstrates basic detection functionality and provides detection information through the defined interface.
 
-You can find the example plugin code and usage instructions in the following repository: [Example Video Plugin](https://github.com/example-plugin-repo)
+You can find the example plugin code and usage instructions in the following file: [Example Video Plugin Implementation](https://github.com/ckurdu/detectionplugin/blob/main/recognationlibrary.cpp)
 
 ## Plugin Interface
 
