@@ -61,6 +61,20 @@ Checks if a frame has been detected for any changes. Returns `true` if a change 
 
 Returns a vector of `DetectionInfo` objects containing information about the detected frames. Each `DetectionInfo` object provides the detected coordinates, the modified frame (if applicable), and flags indicating whether the frame should be shown or saved.
 
+## DetectionInfo Structure
+
+The `DetectionInfo` structure represents information about a detected frame. It includes the following members:
+
+- `std::vector<cv::Point> detectedCoordinates`: A vector of `cv::Point` objects representing the detected coordinates in the frame.
+
+- `cv::Mat* modifiedFrame`: A pointer to the modified frame. If the frame is not modified, this member will be `nullptr`.
+
+- `bool showFrame`: A boolean flag indicating whether the frame should be shown.
+
+- `bool saveFrame`: A boolean flag indicating whether the frame should be saved.
+
+The `detectedCoordinates` member provides the coordinates where the detection occurred in the frame. The `modifiedFrame` member contains a pointer to the modified frame, if any changes were made. The `showFrame` and `saveFrame` flags determine whether the frame should be shown or saved, respectively.
+
 ## Conclusion
 
 Using a video plugin in your application allows you to extend its functionality by adding custom video processing and detection capabilities. By following the provided guide, you can effectively use and implement video plugins in your application.
