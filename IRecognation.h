@@ -2,6 +2,10 @@
 #include <opencv2/core/core.hpp>
 #include <string>
 #include <vector>
+#include <QThread>
+#include <QMutex>
+#include <QWaitCondition>
+#include <QDebug>
 
 /**
  * @brief Structure to hold information about a detection.
@@ -20,13 +24,33 @@ struct DetectionInfo {
  * This class defines the interface for a video plugin that processes frames from a video source and provides
  * detection information to the main application.
  */
-class IRecognation {
+class IRecognation : public QThread {
+    Q_OBJECT //  Q_OBJECT macro to enable signals and slots
+
+signals:
+    virtual void frameProcessed(cv::Mat* frame);
+
+public slots:
+    virtual void setFrame(cv::Mat* frame) = 0;
+
+    virtual void setStatus(bool status) = 0;
+
 public:
+    
+    virtual void set_Mutex(QMutex* lock) = 0;
     /**
      * @brief Destructor.
      */
-    virtual ~IRecognation() {}
+    virtual ~IRecognation() {
+        qDebug() << "Destructor Called IR";
+    }
 
+    virtual void run() override = 0;
+
+    virtual void setRunning(bool run) = 0;
+
+    virtual void calibrate(bool init, int CalibTime) = 0;
+        
     /**
      * @brief Get the name of the plugin.
      *
@@ -55,8 +79,30 @@ public:
      *
      * This method is called by the main application to determine if the current frame should be saved.
      *
-     * @return True if the frame should be saved, false otherwise.
+     * @return void.
      */
+
+    virtual void initialize_Tracking(int CalibrationTime) = 0;
+    
+    /**
+    * @brief Initialize Tracking for the designated Calibration Time.
+    *
+    * This method is called by the main application Initialize tracking for the calibration time to reset detections.
+    *
+    * @return void.
+    */
+
+    virtual void free_Resources() = 0;
+
+    virtual bool get_Beep_Status() = 0;
+
+    /**
+   * @brief Return Beep Status.
+   *
+   * This method is called by the main application to sound a beep upon Fish Detection.
+   *
+   * @return bool.
+   */
     virtual bool shouldSaveFrame() const = 0;
 
     /**
@@ -85,4 +131,5 @@ public:
      * @return A vector of DetectionInfo objects containing the detection information.
      */
     virtual std::vector<DetectionInfo> getDetectionInfo() const = 0;
+    
 };

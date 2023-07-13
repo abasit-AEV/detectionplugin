@@ -1,0 +1,10 @@
+@PACKAGE_INIT@
+
+set(RecognationLibrary_INCLUDE_DIRS "${CMAKE_INSTALL_INCLUDEDIR}/RecognationLibrary")
+
+foreach(_IMPORTED_TARGET ${_IMPORT_PREFIX})
+  get_target_property(_IMPORTED_INCLUDE_DIRS ${_IMPORTED_TARGET} INTERFACE_INCLUDE_DIRECTORIES)
+  list(APPEND RecognationLibrary_INCLUDE_DIRS ${_IMPORTED_INCLUDE_DIRS})
+endforeach()
+
+list(REMOVE_DUPLICATES RecognationLibrary_INCLUDE_DIRS)
